@@ -14,7 +14,7 @@
       :pagination.sync="pagination"
     >
     <v-flex xs12 sm6 md4 slot="item" slot-scope="props">
-      <podcast :card-info="props.item"></podcast>
+      <podcast transition="fade-transition" :card-info="props.item"></podcast>
     </v-flex>
     </v-data-iterator>
 </v-container>

@@ -1,7 +1,6 @@
 <template>
  <v-card>
     <v-card-media
-      transition="fade-transition"
       :src="cardInfo.thumbnailUrl"
       :height="cardThumbnail"
     >

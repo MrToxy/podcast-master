@@ -6,6 +6,7 @@ import notFound from '@/components/notFound'
 import login from '@/components/login'
 import register from '@/components/register'
 import AuthGuard from './auth-guard'
+import {store} from '../store/store'
 Vue.use(Router)
 
 export default new Router({
@@ -17,12 +18,28 @@ export default new Router({
     {
       name: 'login',
       path: '/login',
-      component: login
+      component: login,
+      beforeEnter: (to, from, next) => {
+        if(store.getters.getUserState)
+        {
+          next('/')
+        }
+        else next()
+        
+      }
     },
     {
       name:'register',
       path:'/register',
-      component:register
+      component:register,
+      beforeEnter: (to, from, next) => {
+        if(store.getters.getUserState)
+        {
+          next('/')
+        }
+        else next()
+        
+      }
     },
     {
       path:'/podcasts/',

@@ -77,15 +77,17 @@
               </v-list>
             </v-menu>
             <v-flex xs12 sm8 md4 lg3>
-            <v-text-field class="searchBox"
+              <transition name="fade">
+                <v-text-field class="searchBox"
               ref="searchBox"
-              v-show="SearchBox"
+              v-if="SearchBox"
               name="Search"
               single-line
               hint="Filter Podcasts"
               transition="slide-transition"
-        >
-        </v-text-field>  
+                >
+              </v-text-field>  
+              </transition>
             </v-flex>
            </v-layout>
             <v-tooltip bottom>
@@ -148,13 +150,10 @@
   }
 </script>
 <style scoped>
-.searchBox{
-  animation: searchIn 4s ease-in-out forwwards;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
 }
-@keyframes searchIn{
-  from{width:0;}
-  to{width:20%;}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
-
-
 </style>

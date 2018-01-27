@@ -8,7 +8,12 @@ export const store = new Vuex.Store({
         podcasts:[
 
         ],
-        user:null,
+        user:{
+            username:'João Petinga',
+            favouritePodcasts:[{
+                id:1
+            }]
+        },
         searchTerm:'Lorem'
     },
     mutations:{
