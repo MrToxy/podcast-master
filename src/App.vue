@@ -82,6 +82,7 @@
               ref="searchBox"
               v-if="SearchBox"
               name="Search"
+              v-model="searchTerm"
               single-line
               hint="Filter Podcasts"
               transition="slide-transition"
@@ -125,7 +126,8 @@
         drawer: false,
         SearchBox: false,
         dialog:false,
-        searchButton:true
+        searchButton:true,
+        searchTerm:''
       }
     },
     computed:{
@@ -142,7 +144,9 @@
       }
     },
     watch:{
-
+      searchTerm(){
+        this.$store.state.searchTerm = this.searchTerm
+      },
      $route(to,from){
        this.checkPath()
      }

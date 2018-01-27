@@ -9,7 +9,7 @@
       v-show="!showAlert"
       content-tag="v-layout"
       wrap
-      :items="podcasts"
+      :items="FilteredPodcasts"
       :rows-per-page-items="rowsPerPageItems"
       :pagination.sync="pagination"
     >
@@ -52,12 +52,11 @@ export default {
     podcasts(){
       return this.$store.state.podcasts
     },
-    FilterPodcasts(){
-      return this.$store.getters.LoadedPodcasts.sort(podcast => {
-        return podcast.contains(searchTerm)
-      })
-    }
-  },
+    FilteredPodcasts(){
+      console.log(this.$store.getters.getFilteredPodcasts)
+     return this.$store.getters.getFilteredPodcasts
+      }
+    },
   created(){
     this.loading = true
     this.loaded = false
@@ -68,7 +67,7 @@ this.$http.get('https://jsonplaceholder.typicode.com/photos').then(response => {
     this.loading = false
     this.loaded = true
     this.$store.state.podcasts = response.body
-    console.log(this.$store.state.podcasts)
+    console.log(this.$store.state.podcasts[0].title)
     //this.cards = response.body.slice(0,20)
 
   }, response => {

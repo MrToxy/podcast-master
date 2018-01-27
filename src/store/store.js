@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
                 id:1
             }]
         },
-        searchTerm:'Lorem'
+        searchTerm:''
     },
     mutations:{
 
@@ -27,6 +27,9 @@ export const store = new Vuex.Store({
             if(state.user == null)
             return false
             else return true
-        }
+        },
+        getFilteredPodcasts: (state) =>  {
+            return state.podcasts.filter(podcast => podcast.title.match(state.searchTerm))
+          }
     }
 })
