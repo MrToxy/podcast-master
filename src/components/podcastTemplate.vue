@@ -12,7 +12,7 @@
             </v-flex>
             <v-layout row wrap justify-center>
               <v-flex d-flex style="padding-left:20px;" xs12>
-            <span class="grey--text">Lorem ipsum dolor</span>
+            <span class="grey--text">{{cardInfo.title}}</span>
             </v-flex>
             </v-layout>
             </v-layout>
@@ -20,7 +20,7 @@
       <v-layout wrap row mb-1>
         <v-flex xs12>
           <keep-alive>
-         <component :is="componentId" v-show="showCustomComponent" transition="fade" transition-mode="out-in"></component>
+         <component :is="componentId" :text="cardInfo.title" v-show="showCustomComponent" transition="fade" transition-mode="out-in"></component>
         </keep-alive>
           </v-flex> 
       </v-layout>

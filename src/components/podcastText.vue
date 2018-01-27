@@ -2,25 +2,32 @@
 <v-container>
 <v-layout row wrap>
 <v-card-text transition="fade-transition">
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+{{text}}
 </v-card-text>
 </v-layout>
 <v-layout row justify-center>
-    <v-dialog v-model="dialog" width="600px">
+    <v-dialog v-model="dialog" scrollable width="600px">
       <v-btn color="primary" dark slot="activator">Read More</v-btn>
       <v-card>
+        <v-layout row>
+          <v-flex xs12>
            <v-alert :type="alertType"
+           style="margin:0;"
            dismissible
            v-model="toggleAlert"
            transition='scale-transition'>
       {{alertText}}
     </v-alert>
+    </v-flex>
+    </v-layout>
         <v-card-title>
           <span class="headline">Podcast Title</span>
         </v-card-title>
-        <v-card-text scrollable>
+        <v-divider></v-divider>
+        <v-card-text>
           {{textFake}}
         </v-card-text>
+        <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" flat="flat"
