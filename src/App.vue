@@ -84,7 +84,7 @@
               name="Search"
               v-model="searchTerm"
               single-line
-              hint="Filter Podcasts"
+              hint="Filter by title"
               transition="slide-transition"
                 >
               </v-text-field>  
