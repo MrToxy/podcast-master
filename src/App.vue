@@ -31,7 +31,7 @@
   <!-- /NAVIGATION DRAWER/ -->
 
   <!-- SEARCH DIALOG -->
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="dialog" persistent max-width="600px">
       <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
       <v-card>
         <v-card-title>
@@ -46,9 +46,36 @@
               <v-flex xs12 sm6 md4>
                 <v-text-field label="Description" hint="Check if description contains"></v-text-field>
               </v-flex>
+              <v-flex xs12 sm6 md4 style="padding-left:10px;">
+                <v-menu
+                  ref="menu"
+                  lazy
+                  :close-on-content-click="false"
+                  v-model="menu"
+                  transition="scale-transition"
+                  offset-y
+                  full-width
+                  :nudge-right="40"
+                  min-width="330px"
+        :return-value.sync="date"
+      >
+        <v-text-field
+        clearable
+          slot="activator"
+          label="Select a date"
+          v-model="date"
+          prepend-icon="event"
+          readonly
+        ></v-text-field>
+        <v-date-picker v-model="date" no-title scrollable>
+          <v-spacer></v-spacer>
+          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+          <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
+              </v-flex>
             </v-layout>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -84,7 +111,7 @@
               name="Search"
               v-model="searchTerm"
               single-line
-              hint="Filter by title"
+              hint="General search"
               transition="slide-transition"
                 >
               </v-text-field>  
@@ -95,7 +122,7 @@
       <v-btn outline  v-show="searchButton" color="light-blue darken-1" icon slot="activator" class="hidden-xs-only" @click="SearchBox = !SearchBox">
         <v-icon color="#01579B" class="hidden-xs-only">search</v-icon>
       </v-btn>
-      <span>Filter Podcasts</span>
+      <span>Search Podcasts</span>
     </v-tooltip>
         <v-tooltip bottom>
       <v-btn v-if="loggedIn" to="/podcasts/favourite" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
@@ -127,7 +154,10 @@
         SearchBox: false,
         dialog:false,
         searchButton:true,
-        searchTerm:''
+        searchTerm:'',
+        date: null,
+        menu: false,
+        modal: false
       }
     },
     computed:{

@@ -9,7 +9,8 @@
       v-show="!showAlert"
       content-tag="v-layout"
       wrap
-      :items="FilteredPodcasts"
+      :items="podcasts"
+      :search="searchTerm"
       :rows-per-page-items="rowsPerPageItems"
       :pagination.sync="pagination"
     >
@@ -48,14 +49,22 @@ export default {
       loaded:false
     }
   },
+  methods:{
+    search(){
+      return this.$store.state.LoadedPodcasts.filter(podcast => podcast.title.match)
+    }
+  },
     computed:{
+      searchTerm(){
+        return this.$store.state.searchTerm
+      },
     podcasts(){
-      return this.$store.state.podcasts
+      return this.$store.getters.LoadedPodcasts
     },
-    FilteredPodcasts(){
+    /*FilteredPodcasts(){
       console.log(this.$store.getters.getFilteredPodcasts)
      return this.$store.getters.getFilteredPodcasts
-      }
+      }*/
     },
   created(){
     this.loading = true

@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
                 id:1
             }]
         },
-        searchTerm:''
+        searchTerm:'',
+        description:''
     },
     mutations:{
 
