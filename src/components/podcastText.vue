@@ -11,7 +11,8 @@
       <v-card>
         <v-layout row>
           <v-flex xs12>
-           <v-alert :type="alertType"
+           <v-alert 
+           :type="alertType"
            style="margin:0;"
            dismissible
            v-model="toggleAlert"

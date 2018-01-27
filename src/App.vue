@@ -106,6 +106,8 @@
             <v-flex xs12 sm8 md4 lg3>
               <transition name="fade">
                 <v-text-field class="searchBox"
+                clearable
+                v-on:blur="hideText"
               ref="searchBox"
               v-if="SearchBox"
               name="Search"
@@ -145,7 +147,6 @@
   </v-layout>
   </v-app>
 </template>
-
 <script>
   export default {
     data () {
@@ -166,6 +167,9 @@
       }
     },
     methods:{
+      hideText(){
+        this.SearchBox = false
+      },
       checkPath(){
         if(this.$route.path == '/podcasts' || this.$route.path == '/podcasts/favourite'){
           this.searchButton = true
