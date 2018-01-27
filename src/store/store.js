@@ -8,12 +8,12 @@ export const store = new Vuex.Store({
         podcasts:[
 
         ],
-        user:{
+        user:null/*{
             username:'João Petinga',
             favouritePodcasts:[{
                 id:1
             }]
-        },
+        }*/,
         searchTerm:'',
         description:''
     },

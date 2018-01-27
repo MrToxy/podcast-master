@@ -6,32 +6,33 @@
       Select an avatar
     </v-stepper-step>
     <v-stepper-content step="1">
-      <v-card color="grey lighten-1" class="mb-5" height="100px" width="100px">
-                          <v-card-media
-      transition="fade-transition"
-      :src="avatar"
-      height="100px"
-      v-show="showImage"
-    >
-    </v-card-media>
-    <v-layout row justify-center align-center>
-    <v-card-actions>
-       <v-btn
-          :loading="loading"
-          @click.native="loader = 'loading'"
-          :disabled="loading"
-          color="blue-grey"
-          class="white--text"
-          flat
-          style="margin:0;"
-          >
-          <v-icon>cloud_upload</v-icon>
-          </v-btn>
-    </v-card-actions>
-    </v-layout>
+      <v-layout row wrap>
+      <v-card color="grey lighten-1" class="mb-5" height="200px" width="200px">
+        <v-container align-center justify-center>
+          <v-flex xs12>
+        <picture-input
+        ref="pictureInput"
+        @change="onChanged"
+        @remove="onRemoved"
+        :width="200"
+        :hideChangeButton="true"
+        :removable="true"
+        :height="200"
+        accept="image/jpeg, image/png, image/gif"
+        buttonClass="ui button primary"
+        :customStrings="{
+        upload: '<h1>Upload it!</h1>',
+        drag: 'Drag and drop your image here'}">
+        >
+        </picture-input>
+        </v-flex>
+        </v-container>
       </v-card>
+      </v-layout>
+      <v-layout row wrap>
       <v-btn color="primary" @click.native="e6 = 2">Continue</v-btn>
       <v-btn flat to="/">Cancel</v-btn>
+      </v-layout>
     </v-stepper-content>
     <v-stepper-step step="2" :complete="e6 > 2" editable="">Credentials</v-stepper-step>
     <v-stepper-content step="2">
@@ -103,7 +104,9 @@
   </v-container>
 </template>
 <script>
+import PictureInput from 'vue-picture-input'
     export default{
+      components:{PictureInput},
         data(){
             return{
                 e6:1,
@@ -141,6 +144,31 @@
             }
         },
         methods:{
+          onChanged() {
+    console.log("New picture loaded");
+    if (this.$refs.pictureInput.file) {
+      this.image = this.$refs.pictureInput.file;
+    } else {
+      console.log("Old browser. No support for Filereader API");
+    }
+  },
+  onRemoved() {
+    this.image = '';
+  },
+  attemptUpload() {
+    if (this.image){
+      FormDataPost('http://localhost:8001/user/picture', this.image)
+        .then(response=>{
+          if (response.data.success){
+            this.image = '';
+            console.log("Image uploaded successfully ✨");
+          }
+        })
+        .catch(err=>{
+          console.error(err);
+        });
+    }
+  },
           upload(){
             this.showBtn = false;
             this.showImage = true;
@@ -201,5 +229,8 @@
     to {
       transform: rotate(360deg);
     }
+  }
+  .ui{
+    display:inline-block
   }
 </style>
