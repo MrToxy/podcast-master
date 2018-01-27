@@ -26,6 +26,7 @@
           </v-flex> 
       </v-layout>
              <v-bottom-nav
+      style="z-index:1;"
       shift
       :value="true"
       :active.sync="e2"
