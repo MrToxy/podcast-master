@@ -67,7 +67,8 @@ export default {
       e2:3,
       componentId:'',
       showCustomComponent:false,
-      cardThumbnail:'200px'
+      cardThumbnail:'200px',
+      currentColor:''
       }
     },
     methods:{
@@ -77,23 +78,32 @@ export default {
       showText(){
         if(!this.showCustomComponent)
           this.showCustomComponent = !this.showCustomComponent
+
           this.componentId = 'podcast-text'
           this.cardThumbnail = "200px"
+          //this.emmitNewColor()
       },
       showAudioPlayer(){
         if(!this.showCustomComponent)
           this.showCustomComponent = !this.showCustomComponent
         this.componentId = 'podcast-audio-player'
         this.cardThumbnail = "200px"
+        //this.emmitNewColor()
       },
       showImage(){
         if(this.showCustomComponent)
           this.showCustomComponent = !this.showCustomComponent
         this.cardThumbnail = "300px"
+        //this.emmitNewColor()
       },
       closeOptions(){
-        this.showCustomComponent = !this.showCustomComponent
+        this.showCustomComponent = false
         this.cardThumbnail = "200px"
+        //this.emmitNewColor()
+      },
+      emmitNewColor(){
+        this.$store.state.toolbarColor = this.color
+        console.log(this.$store.state.toolbarColor)
       }
     },
     computed: {
@@ -107,6 +117,11 @@ export default {
       },
       reduceTitle(){
         return this.cardInfo.title.substring(0,10)
+      }
+    },
+    watch:{
+      color(){
+        this.$store.state.toolbarColor = this.color
       }
     }
   }

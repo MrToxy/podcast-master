@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
             }]
         }*/,
         searchTerm:'',
-        description:''
+        description:'',
+        toolbarColor:''
     },
     mutations:{
 
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
     getters:{
         LoadedPodcasts(state){
             return state.podcasts
+        },
+        toolbarColor(state){
+            return state.toolbarColor
         },
         getUserState(state){
             if(state.user == null)

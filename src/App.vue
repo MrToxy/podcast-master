@@ -87,7 +87,7 @@
   <!-- /DIALOG/ -->
 
   <!--Top toolbar-->
-    <v-toolbar app fixed class="light-blue lighten-4">
+    <v-toolbar app fixed :class="toolbarColor">
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor:pointer;">Podcasts</router-link>
@@ -158,12 +158,15 @@
         searchTerm:'',
         date: null,
         menu: false,
-        modal: false
+        modal: false,
       }
     },
     computed:{
       loggedIn(){
         return this.$store.getters.getUserState
+      },
+      toolbarColor(){
+        return this.$store.getters.toolbarColor
       }
     },
     methods:{
