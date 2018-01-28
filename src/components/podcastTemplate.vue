@@ -1,5 +1,5 @@
 <template>
- <v-card>
+ <v-card :class="{cardAnime:animationState}">
     <v-card-media
       :src="cardInfo.thumbnailUrl"
       :height="cardThumbnail"
@@ -12,7 +12,9 @@
             </v-flex>
             <v-layout row wrap justify-center>
               <v-flex d-flex style="padding-left:20px;" xs12>
-            <span class="grey--text">{{cardInfo.title}}</span>
+            <span style="height:60px;" class="grey--text">
+              {{cardInfo.title}}
+            </span>
             </v-flex>
             </v-layout>
             </v-layout>
@@ -68,7 +70,9 @@ export default {
       componentId:'',
       showCustomComponent:false,
       cardThumbnail:'200px',
-      currentColor:''
+      currentColor:'',
+      animation:false
+
       }
     },
     methods:{
@@ -107,6 +111,9 @@ export default {
       }
     },
     computed: {
+      animationState(){
+        return this.$store.state.animation
+      },
       color () {
         switch (this.e2) {
           case 0: return 'blue-grey'
@@ -136,5 +143,15 @@ export default {
 .fade-enter, .fade-leave {
   opacity: 0;
 }
+.cardAnime:hover{
+animation: push 0.5s ease-in-out 1;
+border: solid #02d8e9 1px;
+}
+@keyframes pop{
+  50%  {transform: scale(1.2);}
+}
 
+@keyframes push{
+  50%  {transform: scale(0.8);}
+}
 </style>

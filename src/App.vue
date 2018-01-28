@@ -1,5 +1,25 @@
 <template>
 <v-app>
+  <v-container app fluid>
+    <vue-particles
+        color="#498fff"
+        :particleOpacity="0.7"
+        :particlesNumber="100"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#498fff"
+        :linesWidth="1"
+        :lineLinked="false"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+        v-show="canvasState"
+      >
+      </vue-particles>
 <!-- NAVIGATION DRAWER -->
     <v-navigation-drawer xs10 temporary fixed app v-model="drawer">
     <v-toolbar flat class="transparent">
@@ -16,7 +36,7 @@
     </v-toolbar>
     <v-list class="pt-0" dense>
       <v-divider></v-divider>
-      <v-list-tile>
+      <v-list-tile style="margin:20px;">
         <v-list-tile-action>
           <v-btn v-if="loggedIn" dark fab small color="primary" to="/podcasts/favourite">
           <v-icon>favorite</v-icon>
@@ -26,6 +46,32 @@
           <v-list-tile-title>favorite podcasts</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-divider></v-divider>
+      <v-list-tile>
+        <v-list-tile-action>
+        <v-switch
+         v-model="switch1"
+        ></v-switch>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            background animation {{!switch1}}
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-action>
+        <v-switch
+         v-model="switch2"
+        ></v-switch>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            cards animation {{!switch2}}
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
     </v-list>
   </v-navigation-drawer>
   <!-- /NAVIGATION DRAWER/ -->
@@ -87,9 +133,9 @@
   <!-- /DIALOG/ -->
 
   <!--Top toolbar-->
-    <v-toolbar app fixed :class="toolbarColor">
-      <v-toolbar-side-icon @click.native.stop="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>
+    <v-toolbar ref="toolbar" app fixed :color="toolbarColor">
+      <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon><!-- class="hidden-md-and-up" -->
+      <v-toolbar-title style="color:white">
         <router-link to="/" tag="span" style="cursor:pointer;">Podcasts</router-link>
       </v-toolbar-title>
            <v-layout row justify-end>
@@ -140,11 +186,14 @@
     </v-tooltip>
     </v-toolbar>
   <!-- /Top toolbar/ -->
+      
   <v-layout wrap>
+    
     <v-content>
       <router-view></router-view>
     </v-content>
   </v-layout>
+  </v-container>
   </v-app>
 </template>
 <script>
@@ -159,6 +208,10 @@
         date: null,
         menu: false,
         modal: false,
+        switch1:false,
+        switch2:true,
+        canvasState:true,
+        animationState:true,
       }
     },
     computed:{
@@ -167,6 +220,9 @@
       },
       toolbarColor(){
         return this.$store.getters.toolbarColor
+      },
+      colorChanged(){
+        return this.$store.state.colorChanged
       }
     },
     methods:{
@@ -181,12 +237,21 @@
       }
     },
     watch:{
+      switch2(){
+        this.$store.state.animation = !this.switch2
+      },
+      switch1(){
+        this.canvasState = !this.canvasState 
+      },
       searchTerm(){
         this.$store.state.searchTerm = this.searchTerm
       },
      $route(to,from){
        this.checkPath()
      }
+    },
+    created(){
+      console.log(this.$refs.toolbar)
     }
   }
 </script>
@@ -197,4 +262,18 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+#particles-js { 
+  position: absolute; 
+  background-size: cover; 
+  top: 0; 
+  bottom: 
+  0; 
+  left: 
+  0; 
+  right: 
+  0; 
+  overflow-y: hidden; 
+  z-index: 0; 
+  }
+
 </style>

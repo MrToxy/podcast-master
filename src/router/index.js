@@ -50,7 +50,16 @@ export default new Router({
       nam:'favourite',
       path:'/podcasts/favourite',
       component:favourite,
-      beforeEnter:AuthGuard
+      //beforeEnter:AuthGuard
+      beforeEnter:(to, from,next) =>{
+        if(store.getters.LoadedPodcasts.length > 0 && store.getters.getUserState){
+          next()
+        }
+        else {
+          console.log(store.getters.LoadedPodcasts.length)
+          next('/')
+        }
+      }
     },
     {
       path:'*',

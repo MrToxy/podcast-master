@@ -8,6 +8,8 @@ import router from './router'
 import VueResource from 'vue-resource'
 import VueClipboard from 'vue-clipboard2'
 import {store} from './store/store'
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 Vue.use(VueClipboard)
 Vue.use(Vuetify)
 Vue.use(VueResource)

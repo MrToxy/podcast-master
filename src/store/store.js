@@ -8,18 +8,15 @@ export const store = new Vuex.Store({
         podcasts:[
 
         ],
-        user:null/*{
+        user:{
             username:'João Petinga',
-            favouritePodcasts:[{
-                id:1
-            }]
-        }*/,
+            favouritePodcasts:[1,2,3]
+        },
         searchTerm:'',
         description:'',
-        toolbarColor:''
-    },
-    mutations:{
-
+        toolbarColor:'blue lighten-3',
+        colorChanged:false,
+        animation:false
     },
     getters:{
         LoadedPodcasts(state){
@@ -35,6 +32,18 @@ export const store = new Vuex.Store({
         },
         getFilteredPodcasts: (state) =>  {
             return state.podcasts.filter(podcast => podcast.title.match(state.searchTerm))
+          },
+          loginUser(state,payload){
+              state.user = payload
           }
+    },
+    actions:{
+        registerUser({commit},payload){
+            //post to API
+        },
+        loginUser({commit},payload){
+            //request to API, if request is ok then
+            //commit('loginUser',payload)
+        }
     }
 })
