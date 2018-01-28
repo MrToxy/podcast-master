@@ -55,7 +55,7 @@
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>
-            background animation {{!switch1}}
+            background animation {{switch1}}
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -67,7 +67,7 @@
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>
-            cards animation {{!switch2}}
+            cards animation {{switch2}}
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -208,8 +208,8 @@
         date: null,
         menu: false,
         modal: false,
-        switch1:false,
-        switch2:true,
+        switch1:true,
+        switch2:false,
         canvasState:true,
         animationState:true,
       }
@@ -238,7 +238,7 @@
     },
     watch:{
       switch2(){
-        this.$store.state.animation = !this.switch2
+        this.$store.state.animation = this.switch2
       },
       switch1(){
         this.canvasState = !this.canvasState 

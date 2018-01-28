@@ -144,7 +144,7 @@ export default {
   opacity: 0;
 }
 .cardAnime:hover{
-animation: push 0.5s ease-in-out 1;
+animation: push 0.5s ease-in-out forwards;
 border: solid #02d8e9 1px;
 }
 @keyframes pop{
