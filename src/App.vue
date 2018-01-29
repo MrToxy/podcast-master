@@ -79,7 +79,6 @@
 
   <!-- SEARCH DIALOG -->
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Advanced Search</span>
@@ -142,7 +141,7 @@
            <v-layout row justify-end>
            <v-menu offset-y>
             <v-btn flat icon  v-show="SearchBox" small color="light-blue darken-1" slot="activator">
-            <v-icon color="#01579B" class="hidden-xs-only">search</v-icon>
+            <v-icon color="#01579B" >search</v-icon>
             </v-btn>
               <v-list>
                <v-list-tile @click="dialog = !dialog">
@@ -168,8 +167,8 @@
             </v-flex>
            </v-layout>
             <v-tooltip bottom>
-      <v-btn outline  v-show="searchButton" color="light-blue darken-1" icon slot="activator" class="hidden-xs-only" @click="SearchBox = !SearchBox">
-        <v-icon color="#01579B" class="hidden-xs-only">search</v-icon>
+      <v-btn outline  v-show="searchButton" color="light-blue darken-1" icon slot="activator" @click="SearchBox = !SearchBox">
+        <v-icon color="#01579B">search</v-icon>
       </v-btn>
       <span>Search </span>
     </v-tooltip>
