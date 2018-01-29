@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
         },
         searchTerm:'',
         description:'',
-        toolbarColor:'blue lighten-3',
+        toolbarColor:'orange lighten-2',
         colorChanged:false,
         animation:false
     },

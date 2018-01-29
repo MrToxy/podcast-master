@@ -2,7 +2,8 @@
 <v-app>
   <v-container app fluid>
     <vue-particles
-        color="#498fff"
+    ref="canvas"
+        :color="particlesColor"
         :particleOpacity="0.7"
         :particlesNumber="100"
         shapeType="circle"
@@ -17,7 +18,7 @@
         hoverMode="grab"
         :clickEffect="true"
         clickMode="push"
-        v-show="canvasState"
+        v-if="canvasState"
       >
       </vue-particles>
 <!-- NAVIGATION DRAWER -->
@@ -43,7 +44,7 @@
           </v-btn>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>favorite podcasts</v-list-tile-title>
+          <v-list-tile-title>favorite </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
@@ -136,7 +137,7 @@
     <v-toolbar ref="toolbar" app fixed :color="toolbarColor">
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon><!-- class="hidden-md-and-up" -->
       <v-toolbar-title style="color:white">
-        <router-link to="/" tag="span" style="cursor:pointer;">Podcasts</router-link>
+        <router-link to="/" tag="span" style="cursor:pointer;">Podcast Hub</router-link>
       </v-toolbar-title>
            <v-layout row justify-end>
            <v-menu offset-y>
@@ -170,13 +171,13 @@
       <v-btn outline  v-show="searchButton" color="light-blue darken-1" icon slot="activator" class="hidden-xs-only" @click="SearchBox = !SearchBox">
         <v-icon color="#01579B" class="hidden-xs-only">search</v-icon>
       </v-btn>
-      <span>Search Podcasts</span>
+      <span>Search </span>
     </v-tooltip>
         <v-tooltip bottom>
-      <v-btn v-if="loggedIn" to="/podcasts/favourite" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
+      <v-btn v-if="loggedIn" to="/podcasts/favourite  " outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
         <v-icon color="red accent-3" class="hidden-xs-only">favorite</v-icon>
       </v-btn>
-      <span>favourite podcasts</span>
+      <span>favourite </span>
     </v-tooltip>
      <v-tooltip bottom>
       <v-btn to="/register" v-if="!loggedIn" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
@@ -218,8 +219,17 @@
       loggedIn(){
         return this.$store.getters.getUserState
       },
+      particlesColor(){
+        //return this.$store.getters.toolbarColor
+         switch(this.$store.state.toolbarColor){
+           case 'blue lighten-3': return '#90CAF9'
+           case 'light-green lighten-2': return '#AED581'
+           case 'purple lighten-3': return '#CE93D8'
+           case 'orange lighten-2': return '#FFB74D'
+        }
+      },
       toolbarColor(){
-        return this.$store.getters.toolbarColor
+        return this.$store.state.toolbarColor
       },
       colorChanged(){
         return this.$store.state.colorChanged
@@ -230,13 +240,21 @@
         this.SearchBox = false
       },
       checkPath(){
-        if(this.$route.path == '/podcasts' || this.$route.path == '/podcasts/favourite'){
+        if(this.$route.path == '/' || this.$route.path == '/favourite'){
           this.searchButton = true
         }
         else this.searchButton = false
       }
     },
     watch:{
+      particlesColor(){
+        if(this.canvasState == true){
+        this.canvasState = false
+           setTimeout(()=>{
+        this.canvasState = true
+        },150)
+        }
+      },
       switch2(){
         this.$store.state.animation = this.switch2
       },

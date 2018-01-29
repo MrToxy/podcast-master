@@ -116,10 +116,10 @@ export default {
       },
       color () {
         switch (this.e2) {
-          case 0: return 'blue-grey'
-          case 1: return 'teal'
-          case 2: return 'brown'
-          case 3: return 'indigo'
+          case 0: return 'blue lighten-3'
+          case 1: return 'light-green lighten-2'
+          case 2: return 'purple lighten-3'
+          case 3: return 'orange lighten-2'
         }
       },
       reduceTitle(){
