@@ -7,6 +7,7 @@ import login from '@/components/login'
 import register from '@/components/register'
 import AuthGuard from './auth-guard'
 import {store} from '../store/store'
+import authGuard from './auth-guard';
 Vue.use(Router)
 
 export default new Router({
@@ -47,21 +48,22 @@ export default new Router({
       component:ListPodcast
     },
     {
-      nam:'favourite',
+      name:'favourite',
       path:'/podcasts/favourite',
       component:favourite,
-      //beforeEnter:AuthGuard
-      beforeEnter:(to, from,next) =>{
-        if(store.getters.LoadedPodcasts.length > 0 && store.getters.getUserState){
+      beforeEnter:authGuard
+      /*beforeEnter:(to, from,next) =>{
+        if(store.getters.LoadedPodcasts.length > 0 && store.state.user != null){
           next()
         }
         else {
           console.log(store.getters.LoadedPodcasts.length)
           next('/')
         }
-      }
+      }*/
     },
     {
+      name:'notFound',
       path:'*',
       component: notFound
     }

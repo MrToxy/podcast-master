@@ -156,7 +156,7 @@
                 clearable
                 v-on:blur="hideText"
               ref="searchBox"
-              v-if="SearchBox"
+              v-show="SearchBox"
               name="Search"
               v-model="searchTerm"
               single-line
@@ -174,10 +174,10 @@
       <span>Search </span>
     </v-tooltip>
         <v-tooltip bottom>
-      <v-btn v-if="loggedIn" to="/podcasts/favourite  " outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
+      <v-btn v-if="loggedIn" to="/podcasts/favourite" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
         <v-icon color="red accent-3" class="hidden-xs-only">favorite</v-icon>
       </v-btn>
-      <span>favourite </span>
+      <span>favourite</span>
     </v-tooltip>
      <v-tooltip bottom>
       <v-btn to="/register" v-if="!loggedIn" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
@@ -233,6 +233,9 @@
       },
       colorChanged(){
         return this.$store.state.colorChanged
+      },
+      pathChanged(){
+        return this.$route.path
       }
     },
     methods:{
@@ -240,7 +243,7 @@
         this.SearchBox = false
       },
       checkPath(){
-        if(this.$route.path == '/' || this.$route.path == '/favourite'){
+        if(this.$route.path == '/podcasts' || this.$route.path == '/podcasts/favourite'){
           this.searchButton = true
         }
         else this.searchButton = false

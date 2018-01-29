@@ -34,14 +34,9 @@
     this.seconds = this.seconds - 1
     if (this.seconds == 0) {
         this.value += 25
-        setInterval(()=>{
-            clearInterval(interval);
-        this.$router.push('/')
-        },500)
         //Do something
-         
         // Stop the counter
-       
+        this.$router.push('/podcasts')
     }
     this.value += 25
 }, 1000);
