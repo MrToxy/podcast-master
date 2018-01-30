@@ -69,7 +69,7 @@ export default {
   created(){
     this.loading = true
     this.loaded = false
-this.$http.get('https://jsonplaceholder.typicode.com/photos').then(response => {
+    this.$http.get('https://jsonplaceholder.typicode.com/photos').then(response => {
 
     // get body data
     this.showAlert = false
