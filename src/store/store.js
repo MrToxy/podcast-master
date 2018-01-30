@@ -36,21 +36,6 @@ export const store = new Vuex.Store({
           }
     },
     actions:{
-        registerUser({commit},payload){
-            //post to API
-            console.log("Got here")
-            console.log(Vue.http.post)
-            Vue.http.get('/user/register', {email: payload.email, password:payload.password,avatar:payload.avatar,username:payload.username}).then(response => {
-                console.log("and here?")
-                if(response.status == "200")
-                    {
-                        this.state.registrationStatus = true
-                    }
-                    else this.state.registrationStatus = false
-              }, response => {
-                this.state.registrationStatus = false
-              })
-        },
         loginUser({commit},payload){
             //request to API, if request is ok then
             commit('loginUser',payload)

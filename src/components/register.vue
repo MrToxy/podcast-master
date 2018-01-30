@@ -10,21 +10,6 @@
       <v-card color="grey lighten-1" class="mb-5" height="200px" width="200px">
         <v-container align-center justify-center>
           <v-flex xs12>
-       <!-- <picture-input
-        ref="pictureInput"
-        @change="onChanged"
-        @remove="onRemoved"
-        :width="200"
-        :hideChangeButton="true"
-        :removable="true"
-        :height="200"
-        accept="image/jpeg, image/png, image/gif"
-        buttonClass="ui button primary"
-        :customStrings="{
-        upload: '<h1>Upload it!</h1>',
-        drag: 'Drag and drop your image here'}">
-        >
-        </picture-input>-->
         <picture-input 
       ref="pictureInput" 
       @change="onChange" 
@@ -47,7 +32,10 @@
       <v-btn flat to="/">Cancel</v-btn>
       </v-layout>
     </v-stepper-content>
-    <v-stepper-step step="2" :complete="e6 > 2" editable="">Credentials</v-stepper-step>
+    <v-stepper-step step="2" :complete="e6 > 2" editable :rules="[nameRules,emailRules,passwordRules]">
+      Credentials
+      <small>Please check your credentials</small>
+      </v-stepper-step>
     <v-stepper-content step="2">
               <v-card class="grey lighten-3 mb-5">
             <v-layout row wrap justify-center align-center>
@@ -146,7 +134,6 @@
            :type="alertType"
            style="margin:0;"
            dismissible
-           icon="error"
            v-model="showAlert"
            transition='fade-transition'>
       {{alertText}}
@@ -168,11 +155,12 @@ export default {
       valid: false,
       loader: null,
       loading: false,
-      showAlert:true,
+      showAlert:false,
       alertType:"error",
       alertText:"There was an error with your registration",
       iconType:"error",
       e1: true,
+      result:true,
       image:'',
       e2: true,
       e3:true,
@@ -212,12 +200,25 @@ export default {
   },
   methods: {
     onRegister() {
-      this.$store.dispatch("registerUser", {
-        email: this.email,
-        password: this.password,
-        avatar: this.avatar,
-        username:this.username
-      });
+         this.$http.post('/user/register', {email: this.email, password:this.password,avatar:this.image,username:this.username}).then(response => {
+                console.log("and here?")
+                if(response.status == "200")
+                    {
+                        this.showAlert = true
+                        this.alertType = "success"
+                        this.alertText = "You have been succesfully registered"
+                    }
+                    else { this.showAlert = true
+                        this.alertType = "error"
+                        this.alertText = "There has been an error while registering your account"}
+              }, response => {
+                 this.showAlert = true
+                 this.alertType = "error"
+                 this.alertText = "There has been an error while registering your account"
+              })
+    },
+    redirectToLogin(){
+
     },
       onChange (image) {
       console.log('New picture selected!')
