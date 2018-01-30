@@ -20,5 +20,8 @@
 > While travelling directly to "/podcasts/favourite" without letting the app default to "/podcasts" will result in no data displayed.
 >This is due to the way the http request was implemented, it loads on the created hook of the podcasts route component instead of the created hook of app.vue.
 
+# Tests
 
+> To mimic a no login or failed login situation under src/store/store.js change the propery user to user:null
+> To mimic a successful login go to src/store/store.js and change the user property to user:{username:'something',favouritePodcasts:[1,2,3,4,,50]} choose so ids
 
