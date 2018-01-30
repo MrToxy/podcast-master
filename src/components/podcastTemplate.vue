@@ -31,7 +31,7 @@
       </v-layout>
       <v-layout row >
         <v-flex>
-         <p style="margin-right:10px;" class="text-xs-right subheading grey--text">{{cardInfo.added_date}}</p>
+         <p style="margin-right:10px;" class="text-xs-right subheading grey--text">11/10/2017</p>
         </v-flex>
       </v-layout>
              <v-bottom-nav
