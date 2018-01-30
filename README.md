@@ -5,9 +5,9 @@
 - There are still a lot of things to be worked on but the basic "skeleton" is there
 
 #Starting up the project
-> 1- Download the file as zip, or clone it
-> 2- cd into the project directory and run the command npm install  to install all dependencies
-> 3- run npm run dev
+1. 1- Download the file as zip, or clone it
+1. 2- cd into the project directory and run the command npm install  to install all dependencies
+1. 3- run npm run dev
 
 #Problems starting up the project 
 
