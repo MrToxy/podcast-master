@@ -8,7 +8,10 @@
               <v-card-title primary-title>
                 <v-layout wrap>
                 <v-flex xs12>
-            <div class="headline">{{reduceTitle}}</div>
+            <div class="headline">
+              {{reduceTitle}}
+            </div>
+            <h3>hosted by</h3>
             </v-flex>
             <v-layout row wrap justify-center>
               <v-flex d-flex style="padding-left:20px;" xs12>
@@ -25,6 +28,11 @@
          <component :is="componentId" :text="cardInfo.title" v-show="showCustomComponent" transition="fade" transition-mode="out-in"></component>
         </keep-alive>
           </v-flex> 
+      </v-layout>
+      <v-layout row >
+        <v-flex>
+         <p style="margin-right:10px;" class="text-xs-right subheading grey--text">21/10/2017</p>
+        </v-flex>
       </v-layout>
              <v-bottom-nav
       style="z-index:1;"

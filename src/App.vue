@@ -24,6 +24,9 @@
 <!-- NAVIGATION DRAWER -->
     <v-navigation-drawer xs10 temporary fixed app v-model="drawer">
     <v-toolbar flat class="transparent">
+      <v-toolbar-title>
+        
+      </v-toolbar-title>
       <v-list v-if="loggedIn" class="pa-0">
         <v-list-tile avatar>
           <v-list-tile-avatar>
@@ -34,9 +37,20 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+
     </v-toolbar>
     <v-list class="pt-0" dense>
       <v-divider></v-divider>
+      <v-list-tile style="margin:20px;">
+        <v-list-tile-action>
+          <v-btn dark fab small color="primary" to="/podcasts">
+          <v-icon>home</v-icon>
+          </v-btn>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Homepage </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <v-list-tile style="margin:20px;">
         <v-list-tile-action>
           <v-btn v-if="loggedIn" dark fab small color="primary" to="/podcasts/favourite">
@@ -136,7 +150,7 @@
     <v-toolbar ref="toolbar" app fixed :color="toolbarColor">
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon><!-- class="hidden-md-and-up" -->
       <v-toolbar-title style="color:white">
-        <router-link to="/" tag="span" style="cursor:pointer;">Podcast Hub</router-link>
+        <router-link to="/podcasts" tag="span" style="cursor:pointer;">Podcast Hub</router-link>
       </v-toolbar-title>
            <v-layout row justify-end>
            <v-menu offset-y>
@@ -174,7 +188,7 @@
     </v-tooltip>
         <v-tooltip bottom>
       <v-btn v-if="loggedIn" to="/podcasts/favourite" outline color="red accent-3" icon slot="activator" class="hidden-xs-only">
-        <v-icon color="red accent-3" class="hidden-xs-only">favorite</v-icon>
+        <v-icon color="red accent-3" class="hidden-xs-only icons">favorite</v-icon>
       </v-btn>
       <span>favourite</span>
     </v-tooltip>
@@ -296,4 +310,30 @@
   z-index: 0; 
   }
 
+ 
+  .icons {
+/* Clip Background Image */
+
+	  background: url(http://f.cl.ly/items/010q3E1u3p2Q0j1L1S1o/animated_text_fill.png) repeat-y;
+	  -webkit-background-clip: text;
+	  background-clip: text;
+
+/* Animate Background Image */
+
+	  -webkit-text-fill-color: transparent;
+	  -webkit-animation: aitf 80s linear infinite;
+
+/* Activate hardware acceleration for smoother animations */
+
+	  -webkit-transform: translate3d(0,0,0);
+	  -webkit-backface-visibility: hidden;
+
+  }
+
+/* Animate Background Image */
+
+@-webkit-keyframes aitf {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
+}
 </style>
