@@ -1,6 +1,5 @@
 <template>
 <v-app>
-  <v-container app fluid>
     <vue-particles
     ref="canvas"
         :color="particlesColor"
@@ -207,7 +206,6 @@
       <router-view></router-view>
     </v-content>
   </v-layout>
-  </v-container>
   </v-app>
 </template>
 <script>
@@ -335,5 +333,9 @@
 @-webkit-keyframes aitf {
 	0% { background-position: 0% 50%; }
 	100% { background-position: 100% 50%; }
+}
+
+.content{
+  margin-top: 30px;
 }
 </style>

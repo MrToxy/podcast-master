@@ -10,7 +10,7 @@
       <v-card color="grey lighten-1" class="mb-5" height="200px" width="200px">
         <v-container align-center justify-center>
           <v-flex xs12>
-        <picture-input
+       <!-- <picture-input
         ref="pictureInput"
         @change="onChanged"
         @remove="onRemoved"
@@ -24,7 +24,20 @@
         upload: '<h1>Upload it!</h1>',
         drag: 'Drag and drop your image here'}">
         >
-        </picture-input>
+        </picture-input>-->
+        <picture-input 
+      ref="pictureInput" 
+      @change="onChange" 
+      width="200" 
+      height="200"  
+      accept="image/jpeg,image/png" 
+      size="10" 
+      buttonClass="btn"
+      :customStrings="{
+        upload: '<h1>Bummer!</h1>',
+        drag: 'Drag a 😺 GIF or GTFO'
+      }">
+    </picture-input>
         </v-flex>
         </v-container>
       </v-card>
@@ -93,144 +106,201 @@
     </v-stepper-content>
     <v-stepper-step step="3" :complete="e6 >= 2" editable="">View setup instructions</v-stepper-step>
     <v-stepper-content step="3">
+      <v-layout row wrap>
+        <v-flex xs4>
       <v-card color="grey lighten-1" class="mb-5" height="200px">
+        <v-layout row>
+          <v-flex xs3>
+          <img :src="image" id="picture" style="height:100px; width:100px; border:1px solid black; margin:10px" alt="">
+          </v-flex>
+          <v-flex xs6>
+             <v-text-field
+          label="Username"
+          :value="username"
+          readonly
+        ></v-text-field>
+          <v-text-field
+          label="email"
+          :value="email"
+          readonly
+        ></v-text-field>
+          <v-text-field
+          label="Password"
+          :value="password"
+          :append-icon="e3 ? 'visibility' : 'visibility_off'"
+          :append-icon-cb="() => (e3 = !e3)"
+          :type="e3 ? 'password' : 'text'"
+          counter
+        ></v-text-field>
+          </v-flex>
+          </v-layout>
       </v-card>
+      </v-flex>
+      </v-layout>
       <v-btn color="primary" @click.native="e6 = 1">Review Steps</v-btn>
-      <v-btn color="success">Register</v-btn>
+      <v-btn color="success" @click="onRegister">Register</v-btn>
       <v-btn color="error" to='/'>Cancel</v-btn>
     </v-stepper-content>
   </v-stepper>
+           <v-alert 
+           :type="alertType"
+           style="margin:0;"
+           dismissible
+           icon="error"
+           v-model="showAlert"
+           transition='fade-transition'>
+      {{alertText}}
+    </v-alert>
   </v-flex>
   </v-container>
 </template>
 <script>
-import PictureInput from 'vue-picture-input'
-    export default{
-      components:{PictureInput},
-        data(){
-            return{
-                e6:1,
-                showBtn:true,
-                showImage:false,
-                avatar:'https://humethnet.files.wordpress.com/2016/02/100px-biohazard_symbol_red-svg.png',
-                valid: false,
-                loader:null,
-                loading:false,
-                e1: true,
-                e2:true,
-                password: '',
-                picker:null,
-                ConfirmPassword:'',
-                username: '',
-                email: '',
-                continueRegistry:true,
-                passwordRules:[
-                  v => !!v || 'Password cannot be blank',
-                  v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/.test(v) || 'Password does not meet requirements: 1 lower case, 1 Upper case, 1 digit',
-                  v => v.length >= 6 || 'Password must be at least 6 character long'
-                ],
-                Confirm:[
-                  v => !!v || 'Password cannot be blank',
-                  v => v == this.password || 'Password do not match',
-                ],
-                nameRules: [
-                  v => !!v || 'Name is required',
-                  v => v.length <= 10 || 'Name must be less than 10 characters'
-                ],
-                emailRules: [
-                  v => !!v || 'E-mail is required',
-                  v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid',
-                ]
-            }
-        },
-        methods:{
-          onChanged() {
-    console.log("New picture loaded");
-    if (this.$refs.pictureInput.file) {
-      this.image = this.$refs.pictureInput.file;
-    } else {
-      console.log("Old browser. No support for Filereader API");
+import PictureInput from "vue-picture-input";
+export default {
+  components: { PictureInput },
+  data() {
+    return {
+      e6: 1,
+      showBtn: true,
+      showImage: false,
+      avatar:
+        "https://humethnet.files.wordpress.com/2016/02/100px-biohazard_symbol_red-svg.png",
+      valid: false,
+      loader: null,
+      loading: false,
+      showAlert:true,
+      alertType:"error",
+      alertText:"There was an error with your registration",
+      iconType:"error",
+      e1: true,
+      image:'',
+      e2: true,
+      e3:true,
+      password: "",
+      picker: null,
+      ConfirmPassword: "",
+      username: "",
+      email: "",
+      continueRegistry: true,
+      passwordRules: [
+        v => !!v || "Password cannot be blank",
+        v =>
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/.test(v) ||
+          "Password does not meet requirements: 1 lower case, 1 Upper case, 1 digit",
+        v => v.length >= 6 || "Password must be at least 6 character long"
+      ],
+      Confirm: [
+        v => !!v || "Password cannot be blank",
+        v => v == this.password || "Password do not match"
+      ],
+      nameRules: [
+        v => !!v || "Name is required",
+        v => v.length <= 10 || "Name must be less than 10 characters"
+      ],
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "E-mail must be valid"
+      ]
+    };
+  },
+  computed:{
+    getRegisterStatus(){
+      return this.$store.state.registrationStatus
     }
   },
-  onRemoved() {
-    this.image = '';
-  },
-  attemptUpload() {
-    if (this.image){
-      FormDataPost('http://localhost:8001/user/picture', this.image)
-        .then(response=>{
-          if (response.data.success){
-            this.image = '';
-            console.log("Image uploaded successfully ✨");
-          }
-        })
-        .catch(err=>{
-          console.error(err);
-        });
-    }
-  },
-          upload(){
-            this.showBtn = false;
-            this.showImage = true;
-
-          }
-        },
-         watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 3000)
-
-        this.loader = null
+  methods: {
+    onRegister() {
+      this.$store.dispatch("registerUser", {
+        email: this.email,
+        password: this.password,
+        avatar: this.avatar,
+        username:this.username
+      });
+    },
+      onChange (image) {
+      console.log('New picture selected!')
+      if (image) {
+        console.log('Picture loaded.')
+        this.image = image
+        console.log(this.image)
+      } else {
+        console.log('FileReader API not supported: use the <form>, Luke!')
       }
+    },
+    upload() {
+      this.showBtn = false;
+      this.showImage = true;
     }
+  },
+  watch: {
+    getRegisterStatus(){
+      if(this.getRegisterStatus == true){
+
+      }
+      else{
+
+      }
+    },
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+
+      setTimeout(() => (this[l] = false), 3000);
+
+      this.loader = null;
     }
+  }
+};
 </script>
 <style scoped>
-.register-cover{
-  background-image: url('');
+.register-cover {
+  background-image: url("");
   background-position: center;
   background-size: cover;
 }
 
- .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  .ui{
-    display:inline-block
+  to {
+    transform: rotate(360deg);
   }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ui {
+  display: inline-block;
+}
+#picture{
+  transform: rotate(90deg) !important;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
-<v-container text-xs-center  fill-height>
-    <v-layout row wrap  align-center justify-center>
+<v-container text-xs-center fill-height>
+    <v-layout row wrap align-center justify-center>
         <v-flex xs12>
             <h1>Page not found</h1>
             <v-progress-linear :indeterminate="false"
