@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
         podcasts:[
 
         ],
-        user:null,
+        user:{username:'MrToxy',favourite:[1,2,3,4,5,6],avatar:'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/6f/6fee05345d44210b74726326f8d17f43525b84ae_full.jpg'},
         searchTerm:'',
         description:'',
         toolbarColor:'orange lighten-2',

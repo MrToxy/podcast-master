@@ -22,17 +22,17 @@
       </vue-particles>
 <!-- NAVIGATION DRAWER -->
     <v-navigation-drawer xs10 temporary fixed app v-model="drawer">
-    <v-toolbar flat class="transparent">
-      <v-toolbar-title>
-        
+    <v-toolbar :color="toolbarColor" flat class="transparent">
+      <v-toolbar-title v-if="!loggedIn" style="margin:0; width:100%">
+        <h2 class="text-xs-center">Podcast Hub</h2>
       </v-toolbar-title>
       <v-list v-if="loggedIn" class="pa-0">
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <img src="https://randomuser.me/api/portraits/men/85.jpg" />
+            <img :src="getUser.avatar" />
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>John Leider</v-list-tile-title>
+            <v-list-tile-title>Hello {{getUser.username}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -53,11 +53,11 @@
       <v-list-tile style="margin:20px;">
         <v-list-tile-action>
           <v-btn v-if="loggedIn" dark fab small color="primary" to="/podcasts/favourite">
-          <v-icon>favorite</v-icon>
+          <v-icon v-if="loggedIn">favorite</v-icon>
           </v-btn>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>favorite </v-list-tile-title>
+          <v-list-tile-title v-if="loggedIn">favorite </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
@@ -227,6 +227,9 @@
       }
     },
     computed:{
+      getUser(){
+        return this.$store.state.user
+      },
       loggedIn(){
         return this.$store.getters.getUserState
       },
