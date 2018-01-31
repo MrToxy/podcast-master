@@ -21,7 +21,7 @@
       >
       </vue-particles>
 <!-- NAVIGATION DRAWER -->
-    <v-navigation-drawer xs10 temporary fixed app v-model="drawer">
+    <v-navigation-drawer xs10 fixed app v-model="drawer">
     <v-toolbar :color="toolbarColor" flat class="transparent">
       <v-toolbar-title v-if="!loggedIn" style="margin:0; width:100%">
         <h2 class="text-xs-center">Podcast Hub</h2>

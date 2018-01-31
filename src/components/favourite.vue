@@ -53,15 +53,10 @@ export default {
   },
     computed:{
         getFavouritePodcasts(){
-            return this.$store.state.user.favouritePodcasts.findIndex(podcastId => {
-                return this.$store.getters.LoadedPodcasts
-            })
+            return this.$store.state.podcasts.filter(podcast => this.$store.state.user.favouritePodcasts.includes(podcast.id))
         },
       searchTerm(){
         return this.$store.state.searchTerm
-      },
-      podcasts(){
-          return this.$store.state.podcasts
       }
     },
     /*FilteredPodcasts(){
@@ -77,8 +72,8 @@ export default {
   })
 },
 created(){
- this.cards = this.podcasts.slice(0,2)
- console.log(this.cards)
+  this.cards = this.getFavouritePodcasts
+  console.log(this.cards)
 }
 }
 </script>
